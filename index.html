@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name=viewport content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<script src="js/jquery-2.1.1.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	
+	<title>Duty Calculator</title>
+</head>
+<body>
+	<div class="container" id="app">
+	<h1 class="page-header">Duty Calculator</h1>
+		<div class="row">
+			<div class="col-sm-4 col-md-3" id="partyList">
+				<h2 v-if="party.members.length > 0">Players</h2>
+				<ul class="list-group">
+					<duty-list v-for="player in party.members" v-bind:player="player"></duty-list>
+				</ul>
+				<button class="btn btn-default" v-on:click="addScreen">Add New</button>
+				<button class="btn btn-default" v-on:click="rollDuty">Roll Duty</button>
+				<div> <strong>Rolled Duty:</strong> <span v-if="rolledDuty > 0">{{rolledDuty}}</span></div>
+			</div>
+			<div class="col-sm-8 col-md-9 scrollable">
+				<div v-if="currentView === 'view-party'">
+					<view-party v-bind:party="party"></view-party>
+				</div>
+				<div v-else-if="currentView === 'edit-party'">
+					<edit-party v-bind:party="party"></edit-party>
+				</div>
+				<div v-else-if="currentView === 'duty-form'">
+					<duty-form v-bind:party='party'></duty-form>
+				</div>
+				<div v-else-if="currentView === 'view-player'">
+					<view-player v-bind:player="players[currentIndex]"></view-player>
+				</div>
+				<div v-else-if="currentView === 'edit-player'">
+					<edit-player v-bind:player="players[currentIndex]" v-bind:players="players"></edit-player>
+				</div>
+			</div>
+		</div>
+
+		
+	</div>
+	<footer class="text-center ">Designed and Developed by Andrew Laino. Star Wars Age of Rebellion property of Fantasy Flight Games. Star Wars property of Lucasfilm and Disney. All rights reserved</footer>
+	<script src="js/vue.min.js"></script>
+	<script src="js/app.js"></script>
+	<style>
+	
+	</style>
+</body>
+</html>
