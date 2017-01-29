@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div class="container" id="app">
-	<h1 class="page-header">Duty Calculator</h1>
+		<h1 class="page-header">Duty Calculator</h1>
 		<div class="row">
 			<div class="col-sm-4 col-md-3" id="partyList">
 				<h2 v-if="party.members.length > 0">Players</h2>
@@ -21,6 +21,7 @@
 				<button class="btn btn-default" v-on:click="addScreen">Add New</button>
 				<button class="btn btn-default" v-on:click="rollDuty">Roll Duty</button>
 				<div> <strong>Rolled Duty:</strong> <span v-if="rolledDuty > 0">{{rolledDuty}}</span></div>
+				<button class="btn btn-default" v-on:click="showPartyInfo">Show Party Info</button>
 			</div>
 			<div class="col-sm-8 col-md-9 scrollable">
 				<div v-if="currentView === 'view-party'">
@@ -38,16 +39,18 @@
 				<div v-else-if="currentView === 'edit-player'">
 					<edit-player v-bind:player="players[currentIndex]" v-bind:players="players"></edit-player>
 				</div>
+
 			</div>
 		</div>
-
-		
 	</div>
-	<footer class="text-center ">Designed and Developed by Andrew Laino. Star Wars Age of Rebellion property of Fantasy Flight Games. Star Wars property of Lucasfilm and Disney. All rights reserved</footer>
+
+	<footer class="text-center navbar-fixed-bottom">Designed and Developed by Andrew Laino. Star Wars Age of Rebellion property of Fantasy Flight Games. Star Wars property of Lucasfilm and Disney. All rights reserved</footer>
 	<script src="js/vue.min.js"></script>
 	<script src="js/app.js"></script>
 	<style>
-	
+		#app{
+			padding-bottom: 90px;
+		}
 	</style>
 </body>
 </html>

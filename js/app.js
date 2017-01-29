@@ -82,8 +82,10 @@ class Party{
 		}
 
 		// Save party members
-		for(let i = 0; i < newObj.members.length; i++){
-			this.members[i] = new Player(newObj.members[i]);
+		if(newObj.hasOwnProperty("members")){
+			for(let i = 0; i < newObj.members.length; i++){
+				this.members[i] = new Player(newObj.members[i]);
+			}
 		}
 	}
 
@@ -266,7 +268,7 @@ var app = new Vue({
 	created(){
 		// Check to see if party in localstorage
 		let lsData = localStorage.getItem("partyDuty");
-		if(lsData !== undefined){
+		if(lsData !== undefined && lsData !== null){
 			this.party.loadFromLS();
 		}
 		this.party.setRanges();
@@ -278,6 +280,9 @@ var app = new Vue({
 		},
 		rollDuty(){
 			this.rolledDuty = rollD100();
+		},
+		showPartyInfo(){
+			this.currentView = "view-party";
 		}
 	},
 	components: {
