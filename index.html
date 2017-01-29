@@ -18,7 +18,7 @@
 				<ul class="list-group">
 					<duty-list v-for="player in party.members" v-bind:player="player"></duty-list>
 				</ul>
-				<button class="btn btn-default" v-on:click="addScreen">Add New</button>
+				<button class="btn btn-primary" v-on:click="addScreen">Add New</button>
 				<button class="btn btn-default" v-on:click="rollDuty">Roll Duty</button>
 				<div> <strong>Rolled Duty:</strong> <span v-if="rolledDuty > 0">{{rolledDuty}}</span></div>
 				<button class="btn btn-default" v-on:click="showPartyInfo">Show Party Info</button>
@@ -39,7 +39,6 @@
 				<div v-else-if="currentView === 'edit-player'">
 					<edit-player v-bind:player="players[currentIndex]" v-bind:players="players"></edit-player>
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -50,6 +49,12 @@
 	<style>
 		#app{
 			padding-bottom: 90px;
+		}
+		footer{
+			background-color: #222222;
+		}
+		.rolled{
+			background-color: #375a7f;
 		}
 	</style>
 </body>

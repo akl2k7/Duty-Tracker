@@ -7,6 +7,7 @@ class Player{
 		this.id = 0;
 		this.min = 0;
 		this.max = 0;
+		this.rolled = false;
 
 		for(let key in obj){
 			this[key] = obj[key];
@@ -102,10 +103,18 @@ function rollD100(){
 
 // For a list of players
 Vue.component("duty-list", {
-	template: `<li class="list-group-item" v-on:click="showPlayer">
+	template: `<li class="list-group-item" v-bind:class="{rolled: player.rolled}" v-on:click="showPlayer">
 		<div class="row">
 			<div class="col-xs-6"><strong>Player:</strong>{{player.playerName}}</div> 
-			<div class="col-xs-6"><strong>Character:</strong> {{player.charName}}</div> 
+			<div class="col-xs-6"><strong>Character:</strong> {{player.charName}}</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				<strong>Min:</strong> {{player.min}}
+			</div>
+			<div class="col-xs-6">
+				<strong>Max:</strong> {{player.max}}
+			</div>
 		</div>
 	</li>`,
 	props: ["player"],
@@ -279,7 +288,20 @@ var app = new Vue({
 			this.currentView = "duty-form";
 		},
 		rollDuty(){
-			this.rolledDuty = rollD100();
+			let rolled = rollD100();
+			this.rolledDuty = rolled;
+
+			// Add a class to whichever player rolled his duty
+			for(let i = 0; i < this.players.length; i++){
+				let player = this.players[i];
+
+				if(player.max >= rolled && player.min <= rolled){
+					player.rolled = true;
+					alert(player.rolled);
+				}
+				else 
+					player.rolled = false;
+			}
 		},
 		showPartyInfo(){
 			this.currentView = "view-party";
