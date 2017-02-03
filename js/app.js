@@ -286,6 +286,14 @@ var app = new Vue({
 	methods: {
 		addScreen(){
 			this.currentView = "duty-form";
+
+			// Check to see if it's on a mobile device
+			let width = window.screen.width;
+			if(width <= 768){
+				$("#playerList").hide();
+				$("#partyInfo").removeClass("hidden-xs");
+				$("#partyInfo").show();
+			}
 		},
 		rollDuty(){
 			let rolled = rollD100();
@@ -297,7 +305,6 @@ var app = new Vue({
 
 				if(player.max >= rolled && player.min <= rolled){
 					player.rolled = true;
-					alert(player.rolled);
 				}
 				else 
 					player.rolled = false;
@@ -305,6 +312,15 @@ var app = new Vue({
 		},
 		showPartyInfo(){
 			this.currentView = "view-party";
+		},
+		showPlayerList(){
+			$("#partyInfo").hide();
+			$("#playerList").show();
+		},
+		showParty(){
+			$("#playerList").hide();
+			$("#partyInfo").removeClass("hidden-xs");
+			$("#partyInfo").show();
 		}
 	},
 	components: {
