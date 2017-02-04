@@ -229,7 +229,8 @@ Vue.component("view-party", {
 		<h2>Party Info</h2>
 		<p><strong>Campaign Name</strong> {{party.campaignName}}</p>
 		<p><strong>Campaign Description</strong> {{party.campaignDescription}}</p>
-		<p><strong>Contribution Rank</strong> {{party.contributionRank}}</p>
+		<p><strong>Contribution Rank:</strong> {{party.contributionRank}}</p>
+		<p><strong>Total Duty:</strong> {{party.totalDuty}}</p>
 		<ol>
 			<li v-for="player in party.members">
 			<strong>{{player.playerName}}, {{player.charName}}:</strong> {{player.dutyAmount}}
