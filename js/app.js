@@ -61,8 +61,13 @@ class Party{
 			let current = this.members[i];
 			if(i !== 0){
 				let last = this.members[i-1];
-				min = last.max + 1;
-				max = last.max + current.dutyAmount;
+				if(current.dutyAmount > 0){
+					min = last.max + 1;
+					max = last.max + current.dutyAmount;
+				} else {
+					min = 0;
+					max = 0;
+				}
 			} else {
 				min = 0;
 				max = current.dutyAmount;
@@ -101,9 +106,19 @@ function rollD100(){
 	return Math.floor(Math.random() * (100 - 1)) + 1;
 }
 
+function viewInfoOnMobile(){
+	// Check to see if it's on a mobile device
+	let width = window.screen.width;
+	if(width <= 768){
+		$("#playerList").hide();
+		$("#partyInfo").removeClass("hidden-xs");
+		$("#partyInfo").show();
+	}
+}
+
 // For a list of players
 Vue.component("duty-list", {
-	template: `<li class="list-group-item" v-bind:class="{rolled: player.rolled}" v-on:click="showPlayer">
+	template: `<li class="list-group-item" v-on:click="showPlayer">
 		<div class="row">
 			<div class="col-xs-6"><strong>Player:</strong>{{player.playerName}}</div> 
 			<div class="col-xs-6"><strong>Character:</strong> {{player.charName}}</div>
@@ -122,6 +137,8 @@ Vue.component("duty-list", {
 		showPlayer(){
 			app.currentIndex = this.player.id;
 			app.currentView = "view-player";
+
+			viewInfoOnMobile();
 		}
 	} 
 });
@@ -221,6 +238,9 @@ Vue.component("view-party", {
 		<button class="btn btn-default" v-on:click="editParty">Edit Party Info</button>
 	</div>`,
 	props: ["party"],
+	created(){
+		this.party.setRanges();
+	},
 	methods: {
 		editParty(){
 			app.currentView = "edit-party";
